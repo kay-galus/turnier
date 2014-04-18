@@ -1,0 +1,85 @@
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+  <title>Turniere</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'turnier1/styles_lead.css' %}" />
+</head>
+
+<body>
+  <div id="greenline">
+    <h1><font color=white>&nbsp;Pflege Turniere</font></h1> 
+  </div>
+
+  <div id="greenline1">
+    &nbsp;<a href="/turnier/" class="css_button_gr">Home</a>&nbsp;&nbsp;
+  </div>
+
+  <br><br><br><br>
+
+  <br>Aktives Turnier: <font color=red><strong>{{aktiv_tunier}}</strong></font><br>
+  <h3>Liste aller Turniere:</h3>
+
+  <form action="{% url 'turnier1:turniere' %}" method="post"> {% csrf_token %} 
+    
+    {% if alle_turniere %}
+
+    <div class="tabel_gr" >
+      <table cellspacing="0">
+      <tr>
+          <td >&nbsp;</td>
+          <td>&nbsp;Turniername&nbsp;</td>
+          <td>&nbsp;Überschrift für das Turnier&nbsp;</td>
+
+          {% for n in max_spielorte %}
+              <td>&nbsp;Halle {{ forloop.counter }}&nbsp;</td>        
+          {% endfor %}
+      </tr> 
+
+      {% for turniere in alle_turniere %}
+          <tr>
+            {% if aktiv_tunier_id == turniere.id %}  {# ist es das aktive Turnier #}
+                <td >&nbsp;</td>
+                <td><a href="{% url 'turnier1:turnier_edit' turniere.id %}">
+                                  <font color=red>{{ turniere.turnier_name }}</font></a></td>
+                <td><font color=red>
+                     {% if turniere.ueberschrift %} {{turniere.ueberschrift}} {% else %}&nbsp;{% endif %}</font></td>
+                  {#-- die hallen ausgeben --#}
+                  {% for n in turr %}
+                      {% if n.0 == turniere.id %}
+                          <td><font color=red> {% if n.1 %} {{ n.1 }} {% else %}&nbsp;{% endif %}</font> </td>
+                      {% endif %}  
+                  {% endfor %}
+            {% else %}
+              
+                <td><input type="checkbox" name="{{ turniere.id }}" id="choice{{ forloop.counter }}" value="{{ turniere.id }}" /></td>
+                <td><a href="{% url 'turnier1:turnier_edit' turniere.id %}">{{ turniere.turnier_name }}</a></td>
+                <td>{% if turniere.ueberschrift %} {{turniere.ueberschrift}} {% else %}&nbsp;{% endif %}</td>
+
+                  {#-- die hallen ausgeben --#}
+                  {% for n in turr %}
+                      {% if n.0 == turniere.id %}
+                          <td>{% if n.1 %} {{ n.1 }} {% else %}&nbsp;{% endif %}</td>
+                      {% endif %}  
+                  {% endfor %} 
+
+            {% endif %}
+          </tr>
+      {% endfor %}
+    </table>
+  </div>
+  {% else %} 
+    <br>Kein Turnier eingetragen!<br><br><br>
+  {% endif %} 
+    <br>
+    &nbsp;<a href="{% url 'turnier1:turnier_create' %}" class="css_button_gr" ><font color=white>Neues Turnier anlegen</font></a>
+    &nbsp;&nbsp;<input type="submit" value="Markierte Turniere löschen" class="css_button_ro"/><br>
+              
+  </form>
+
+  <div class='css_help'>
+    <strong>Hilfe:</strong>
+    <br>Um die Turnierdaten zu ändern, mit der Maus auf den Turniernamen klicken!
+  </div><br>
+
+ 
+</body>

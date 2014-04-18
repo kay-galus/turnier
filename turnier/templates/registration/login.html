@@ -1,0 +1,47 @@
+{% extends "registration/base.html" %}
+
+{% block title %}Turnier Login{% endblock %}
+
+{% block content %}
+
+<div id="greenline">
+  <h1><font color=white>&nbsp;Login Turnier</font></h1> 
+</div>
+<br><br><br><br>
+
+<form method="post" action="?next={{ next|default:"/turnier" }}">{% csrf_token %}
+
+<table id='login_table' class="login_table" border='1'>
+    <tr>
+      <th style='text-align:center'>Login</th>
+    </tr>
+    <tr>
+        <td>
+            {% if form.errors %}
+            <p class="error"><font color='red'>Username oder Password falsch!</font></p>
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label for="id_username">Username:</label>
+                            {% if form.username.errors %}<span class="error">{{ form.username.errors|join:", " }}</span>{% endif %}
+            {{ form.username }}
+            <br>
+
+            <label for="id_password">Password:&nbsp;</label>
+                        {% if form.password.errors %}<span class="error">{{ form.password.errors|join:", " }}</span>{% endif %}
+            {{ form.password }}
+            <br>
+        </td>
+    </tr>
+    <tr>    
+        <td style='text-align:center'><input type="submit" value="Login" /></td>
+
+    </tr>
+</table>
+
+</form>
+
+{% endblock %}
+

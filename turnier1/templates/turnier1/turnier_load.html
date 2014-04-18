@@ -1,0 +1,79 @@
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+  <title>Turniere</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'turnier1/styles_lead.css' %}" />
+</head>
+
+<body>
+
+<div id="greenline">
+  <h1><font color=white>&nbsp;Spielplan hochladen</font></h1> 
+</div>
+
+<div id="greenline1">
+  &nbsp;<a href="/turnier/" class="css_button_gr">Home</a>&nbsp;&nbsp;
+</div>
+
+<br><br><br><br><br>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+Aktives Turnier: <font color=red>{{ akt_turnier }}</font>
+
+<br>
+
+{% if alle_turniere %}
+
+  <h3>Liste alle Turniere:</h3>
+  
+  <form action="{% url 'turnier1:turnier_load' %}" method="post">{% csrf_token %}
+
+  <div class="tabel_gr" >
+    <table cellspacing="0">
+        <tr>
+          <td style='text-align:center;width:30px;'> <input type="radio" name="choice" id="choice0" value=0 checked /> </td> {# keine vorausgewählt #}
+
+          <td>&nbsp;Turniername&nbsp;</td>
+          <td>&nbsp;Überschrift für das Turnier&nbsp;</td>
+        </tr>
+        {% for turnier in alle_turniere %}
+        <tr>
+            {% if turnier.id == akt_turnier_id %} {# das aktive turnier ist checked  #}
+                <td>&nbsp;</td>
+                <td><font color=red> {{ turnier.turnier_name }} </font></td>
+                <td><font color=red>
+                  {% if turnier.ueberschrift %} {{ turnier.ueberschrift }} {% else %}&nbsp;{% endif %}</font></td>
+
+            {% else %}
+                <td style='text-align:center;'><input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ turnier.id }}" /></td>
+                <td> {{ turnier.turnier_name }} </td>
+                <td> {% if turnier.ueberschrift %} {{ turnier.ueberschrift }} {% else %}&nbsp;{% endif %}</td>
+            {% endif %}   
+        </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+    <br>
+    <a href="/turnier/" class="css_button_gr" >Home</a>&nbsp;&nbsp;
+    <input type="submit" value="Dialog Spielplan hochladen" class="css_button_ro" />
+  </form>
+  <br>
+
+  <div class='css_help'>
+    <strong>Hilfe:</strong>
+    <br>Um ein Spielplan hochzuladen, Turnier auswählen und den Knopf
+    <br>hochladen betätigen.
+    <br>Für ein aktives Turnier kann kein Spielplan hochgeladen werden!
+    <br><br>
+    <strong>Achtung!</strong>
+    <br>Alle für das Turnier schon eingetragenen Spiele oder Hallen
+    <br>werden durch das Hochladen gelöscht und durch die hochgelandenen
+    <br>Daten ersetzt.
+  </div>
+
+{% else %} 
+  Kein Turnier eingetragen!
+{% endif %}  
+</body>

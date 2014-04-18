@@ -1,0 +1,57 @@
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+  <title>Turniere</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'turnier1/styles_lead.css' %}" />
+</head>
+
+<body>
+
+<div id="greenline">
+  <br><font size="6" color=white>&nbsp;Ergebniseingabe &nbsp;&nbsp;Halle: {{ halle }}</font>
+</div>
+
+<br><br><br><br><br>
+    <form action="{% url 'turnier1:eingabe_edit_spiel' spiel_id %}?id={{ hallen_id }}" method="post"> {% csrf_token %}
+
+     
+        {{ form_eingabe.non_field_errors }}
+        {{ form_eingabe.ValidationError}}
+        
+        {% if toreH != None or toreG != None %}
+            <h2><font color=red>&nbsp;Achtung es wurde schon ein Ergebnis eingegeben!</font><br><br>
+        {% endif %}
+
+        <div class="tabel_gr" >
+        <table cellspacing="0">
+            <tr>
+                <td>Zeit</td>
+                <td>Halle</td>
+                <td>Jugend</td>
+                <td>Heim</td>
+                <td>Tore Heim</td>
+                <td>Tore Gast</td>
+                <td>Gast</td>
+            </tr>
+            <tr>
+                <td>{% if spiel_zeit %} {{ spiel_zeit|date:"H:i"}}{% else %}&nbsp;{% endif %}</td>
+                <td style='text-align:center;'>
+                    {% if halle %} {{ halle }}{% else %}&nbsp;{% endif %}</td>
+                <td style='text-align:center;'>
+                    {% if jugend %} {{ jugend }}{% else %}&nbsp;{% endif %}</td>
+                <td>{% if heim %} {{ heim }}{% else %}&nbsp;{% endif %}</td>
+                <td style='background-color:green;'>{% if form_eingabe.toreH %} {{ form_eingabe.toreH }}{% else %}&nbsp;{% endif %}
+                            <div class=errorlist>{{ form_eingabe.toreH.errors|striptags }}</div></td>
+                <td style='background-color:green;'>{% if form_eingabe.toreG  %} {{ form_eingabe.toreG  }}{% else %}&nbsp;{% endif %}
+                            <div class=errorlist>{{ form_eingabe.toreG.errors|striptags }}</div></td>
+                <td>{% if gast %} {{ gast }}{% else %}&nbsp;{% endif %}</td>
+            </tr>
+        </table>
+        </div>
+                   
+        <br>
+      <br>&nbsp;<input type="submit" value='Speichern' class="css_button_ro" />
+      &nbsp;&nbsp;<a href="{% url 'turnier1:eingabe_gesamtspielplan'%}{{hallen_id}}" class="css_button_gr" ><font color=white>Abbruch</font></a>
+    </form>
+
+</body>

@@ -1,0 +1,51 @@
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+  <title>Turniere</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'turnier1/styles_lead.css' %}" />
+</head>
+
+<body>
+<div id="greenline">
+  <h1><font color=white>&nbsp;Neues Turnier anlegen</font></h1> 
+</div>
+
+<div id="greenline1">
+  &nbsp;<a href="{% url 'turnier1:turniere'%}" class="css_button_gr">Pflege Turniere</a>&nbsp;&nbsp;
+        
+</div>
+<br><br><br><br><br>
+  
+    <form action="{% url 'turnier1:turnier_create' %}" method="post"> {% csrf_token %}
+ 
+        {{ form_halle.non_field_errors }}
+        {{ form_turnier.non_field_errors }}
+        {{ form_halle.management_form }}
+        
+        {% for field in form_turnier %}
+                <br>
+                {{ field.label_tag }} {{ field }}
+                    {% if field.errors %}
+                        <font color=red>{{ field.errors|striptags }}</font>
+                    {% else %}
+                        {{ field.help_text }}   
+                    {% endif %}    
+        {% endfor %}
+
+        <br><br>
+        {% for field in form_halle %}
+                
+                <label for="hallen_name">Name der Halle:</label> {{field.hallen_name}}
+                <label for="farbe">Farbe:</label> {{field.farbe}}<br>
+
+                    {% if field.errors %} <br><br>   {% endif %}
+        {% endfor %}
+
+      <br>&nbsp;<input type="submit" value="Turnier anlegen" class="css_button_ro" />
+      &nbsp;&nbsp;<a href="{% url 'turnier1:turniere'%}" class="css_button_gr" >Abbruch</a>
+    </form>
+</body>
+
+
+
+

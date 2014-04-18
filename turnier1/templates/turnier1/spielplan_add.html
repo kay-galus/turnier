@@ -1,0 +1,75 @@
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+  <title>Turniere</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'turnier1/styles_lead.css' %}" />
+</head>
+
+<body>
+
+<div id="greenline">
+  <h1><font color=white>&nbsp;Spielplanpflege/ Spieldaten ändern&nbsp; * &nbsp;{{ turnier }}</font></h1>
+
+</div>
+<br><br><br><br>
+
+<h1>Neue Spiele in den Spielplan eintragen:</h1>
+
+    <form action="{% url 'turnier1:spielplan_add_spiel' %}" method="post"> {% csrf_token %}
+
+        {{ form_spiel.non_field_errors }}
+        {{ form_turnier.non_field_errors }}
+        {{ form_spiel.management_form }}
+        
+        {% for field in form_turnier %}
+                <br>
+                {{ field.label_tag }} {{ field }}
+                    {% if field.errors %}
+                        <font color=red>{{ field.errors|striptags }}</font>
+                    {% else %}
+                        {{ field.help_text }}   
+                    {% endif %}    
+        {% endfor %}
+
+
+        <div class="tabel_gr_klein" >
+        <table cellspacing="0">
+            <tr>
+                <td>Löschen</td>
+                <td>Zeit (10:20)</td> 
+                <td>Bezeichnung</td>
+                <td>Halle</td>
+                <td>Jugend</td>
+                <td>Spieltyp</td>
+                <td>Heimverein</td> 
+                <td>Gastverein</td>
+                <td>Schiedsrichter</td>
+                <td>Kampfgericht</td> 
+            </tr>
+            {% for field in form_spiel %}     
+                <tr>
+                    <td style='text-align:center;background-color:red; '>{{ field.DELETE }}</td>
+                    <td>{{field.zeit}}<br><strong><font color=red>{{ field.zeit.errors|striptags }}</font></strong></td>
+                    <td>{{field.spiel_name}}</td>
+                    <td>{{field.halle}}</td>
+                    <td>{{field.jugend}}</td>
+                    <td>{{field.spiel_type}}</td>
+                    <td>{{field.heim}}</td>
+                    <td>{{field.gast}}</td>
+                    <td>{{field.schiri}}</td>
+                    <td>{{field.kampfgericht}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        </div>               
+        <br><input type="submit" value="Speichern" class="css_button_ro" />
+            &nbsp;&nbsp;<a href="/turnier/spielplan" class="css_button_gr" ><font color=white>Abbruch</font></a>
+    </form>
+<br>
+<div class='css_help'>
+  <strong>Hilfe:</strong><br>
+Die Datensätze als 'Löschen' markieren, die nicht gebraucht werden,<br>
+ansonsten werden leere Einträge erzeugt.
+</div>
+
+</body>

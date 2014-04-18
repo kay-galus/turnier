@@ -1,0 +1,81 @@
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+  <title>Turniere</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'turnier1/styles_lead.css' %}" />
+</head>
+
+<body>
+<div id="greenline">
+  <h1><font color=white>&nbsp;Turniere aktivieren und online stellen</font></h1> 
+</div>
+
+<div id="greenline1">
+  &nbsp;<a href="{% url 'turnier1:index'%}" class="css_button_gr">Home</a>&nbsp;&nbsp;       
+</div>
+<br><br><br><br><br>
+
+{% if alle_turniere %}
+
+  <h3>Liste und Status aller Turniere:</h3>
+  
+  {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+  <form action="{% url 'turnier1:aktiviate_turnier' %}" method="post">{% csrf_token %}
+
+  <div class="tabel_gr" >
+    <table cellspacing="0">
+        <tr>
+          <td style='text-align:center;width: 30px;'> 
+              {% if akt_turnier_id == 0  %}
+                  <input type="radio" name="choice" id="choice0" value=0 checked />
+              {% else %}
+                  <input type="radio" name="choice" id="choice0" value=0 />
+              {% endif %}
+          </td>
+          <td>Online</td>
+          <td>Turniername</td>
+          <td>Überschrift für das Turnier</td>
+        </tr>
+        {% for turnier in alle_turniere %}
+        <tr>
+            {% if turnier.id == akt_turnier_id %} {# das aktive turnier ist checked  #}
+                <td style='text-align:center;'><input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ turnier.id }}" checked/></td>
+                <td style='text-align:center;'><input type="checkbox" name="check" {% if online_turnier_id != '0' %} checked {% endif %}/></td>
+                <td> <font color=red> {{ turnier.turnier_name }} </font> <br> </td>
+                <td><font color=red>  {{turnier.ueberschrift}}   </font></td>
+
+            {% else %}
+                <td style='text-align:center;'><input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ turnier.id }}" /></td>
+                <td>&nbsp;</td>
+                <td> {{ turnier.turnier_name }}</td>
+                <td> {% if turnier.ueberschrift %} {{turnier.ueberschrift}} {% else %}&nbsp;{% endif %}</td>
+
+            {% endif %}   
+        </tr>
+      {% endfor %}
+    </table>
+  </div>
+    <br>
+    <a href="{% url 'turnier1:index'%}" class="css_button_gr" >Home</a>&nbsp;&nbsp;
+    <input type="submit" class="css_button_ro" value="Ausführen" />
+  </form>
+
+<div class='css_help'>
+  <strong>Hilfe:</strong>
+    <br>Was bedeutet 'aktivieren'?
+    <br>Sobald ein Turnier aktiviert ist kann der Spielplan für dieses Turnier
+    <br>im "Backend" bearbeitet werden. 
+    <br>Zum Aktivieren, ein Turnier über den Auswahlknopf (ganz links) auswählen.
+    <br>Wenn kein Turnier aktiv sein soll, den oberste Auswahlknopf ancklicken.
+    <br>
+    <br>Was bedeutet 'Online'?
+    <br>Sobald das Turnier online ist, steht der Spieplan für alle im Internet zur Verfügung.
+    <br>Es kann nur ein aktiviertes Turnier online gestellt werden.
+    <br>Zum Onlinestellen die Checkbox anwählen.
+  </div>
+
+{% else %} 
+  Kein Turnier eingetragen!
+{% endif %}  
+</body>

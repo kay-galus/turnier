@@ -1,0 +1,83 @@
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+  <title>Turnier</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'turnier1/styles_lead.css' %}" />
+</head>
+
+<body>
+<div id="greenline">
+  <h1><font color=white>&nbsp;Ergebniseingabe Halle:&nbsp;&nbsp;{{ hallen_name }}</font></h1>
+</div>
+
+<div id="greenline1">  
+  &nbsp;&nbsp;<a href="/turnier/eingabe" class="css_button_gr">Gesamtspielplan</a>&nbsp;
+</div>
+
+{% if turnier_aktiv %}
+
+      
+    {% if hallen_spielplan %}
+
+        <br><br><br><br>
+
+            <div class="tabel_gr_gross" >
+              <table cellspacing="0">
+                <tr>
+                  <td>edit</td>
+                  <td>Zeit</td>
+                  <td>Halle</td>
+                  <td>Jugend</td>
+                  <td>Heim</td>
+                  <td>Tore H</td>
+                  <td>Tore G</td>
+                  <td>Gast</td>
+                  <td>Schiedsrichter</td>
+                  <td>Kampfgericht</td>
+                </tr>
+                {% for spiel in hallen_spielplan %}
+                    <tr>
+                      <td style='text-align:center;width:3%;'>
+                                 <a href="{% url 'turnier1:eingabe_edit_spiel' spiel.id %}?id={{ hallen_id }}  ">
+                                 <img src={% static 'turnier1/edit-icon-24x24.png' %} ></a></td>
+
+                      {% if spiel.toreH >= 0 or spiel.toreG >= 0 %}
+                            <td style='width:4%; color:red;'>
+                                {% if spiel.zeit %} {{ spiel.zeit|date:"H:i" }}{% else %}&nbsp;{% endif %}</td>
+                            <td style='width:10%; color:red; text-align:center;'>
+                                {% if spiel.halle %} {{ spiel.halle }}{% else %}&nbsp;{% endif %}</td>
+                            <td style='text-align:center;width:5%;color:red; '>
+                                {% if spiel.jugend %} {{ spiel.jugend }}{% else %}&nbsp;{% endif %}</td>
+                            <td style='color:red;text-align:right;'>{% if spiel.heim %} {{ spiel.heim }}{% else %}&nbsp;{% endif %}</td>
+                            <td style='text-align:center;color:red;font-weight:bold;'>{{ spiel.toreH }}</td>
+                            <td style='text-align:center;color:red;font-weight:bold;'>{{ spiel.toreG }}</td>
+                            <td style='color:red;'>{% if spiel.gast %} {{ spiel.gast }}{% else %}&nbsp;{% endif %}</td>
+                            <td style='color:red;'>{% if spiel.schiri %} {{ spiel.schiri}}{% else %}&nbsp;{% endif %}</td>
+                            <td style='color:red;'>{% if spiel.kampfgericht %} {{ spiel.kampfgericht }}{% else %}&nbsp;{% endif %}</td> 
+                      {% else %}
+                            <td style='width:4%;'>
+                                  {% if spiel.zeit %} {{ spiel.zeit|date:"H:i" }}{% else %}&nbsp;{% endif %}</td>
+                            <td style='width:10%; text-align:center;'>
+                                {% if spiel.halle %} {{ spiel.halle }}{% else %}&nbsp;{% endif %}</td>
+                            <td style='text-align:center;width:5%; '>
+                                {% if spiel.jugend %} {{ spiel.jugend }}{% else %}&nbsp;{% endif %}</td>
+                            <td style='text-align:right;'>{% if spiel.heim %} {{ spiel.heim }}{% else %}&nbsp;{% endif %}</td>
+                            <td style='text-align:center;'>{{ spiel.toreH }}</td>
+                            <td style='text-align:center;'>{{ spiel.toreG }}</td>
+                            <td>{% if spiel.gast %} {{ spiel.gast }}{% else %}&nbsp;{% endif %}</td>
+                            <td>{% if spiel.schiri %} {{ spiel.schiri}}{% else %}&nbsp;{% endif %}</td>
+                            <td>{% if spiel.kampfgericht %} {{ spiel.kampfgericht }}{% else %}&nbsp;{% endif %}</td> 
+                      {% endif %}                      
+                    </tr>
+                {% endfor %}
+            </table>
+          </div>
+    {% else %}
+      <br><br><br><br><br><h1><font size="3" color=red>&nbsp;Keine Spiele für das Turnier eingetragen!</font></h1>
+    {% endif %}
+
+{% else %}
+    <br><br><br><br><br><h1><font size="3" color=red>&nbsp;Im Moment ist kein Turnier aktiv!</font></h1>
+{% endif %}
+</body>

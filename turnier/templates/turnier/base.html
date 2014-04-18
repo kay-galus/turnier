@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'turnier/styles.css' %}" />
+    <link rel="shortcut icon" href="{% static 'turnier/favicon.ico' %}" />
+    <title>{% block title %}Spielplan{% endblock %}</title>
+
+  <script src="http://js.pusher.com/2.1/pusher.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    // Enable pusher logging - don't include this in production
+    //Pusher.log = function(message) {
+    //  if (window.console && window.console.log) {
+     //   window.console.log(message);
+     //   }
+      //};
+    var pusher = new Pusher('078584de032a0d8616b3');
+    var channel = pusher.subscribe('turnier_channel');
+    //channel.bind('my_event', function(data) {
+      //alert(data.message);
+    channel.bind('update_site', function() {location.reload(); });
+  </script>
+
+</head>
+
+<div id="white_line_top"></div>
+
+<div id="fix_img">
+  <img src="{% static 'turnier/Header_Turniersoftware.jpg' %}" alt="header">
+</div>
+<body>
+
+
+<div id ='fix_buttons'>
+    <a href="/"          class="button_grey">Übersicht Aktuell</a>&nbsp;
+    <a href="/spielplweibl"  class="button_grey">Gesamtspielplan weiblich</a>&nbsp;
+    <a href="/spielplanmaen" class="button_grey">Gesamtspielplan männlich</a>&nbsp;
+    <a href="/anzeige1"    class="button_grey">Gesamtspielplan mit Gruppen</a>&nbsp;
+</div>
+
+<div id="white_line_buttons"></div>
+
+<br><br><br><br>
+{% block content %} {% endblock %}
+
+</body>

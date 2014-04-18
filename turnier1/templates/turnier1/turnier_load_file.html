@@ -1,0 +1,47 @@
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+  <title>Turniere</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'turnier1/styles_lead.css' %}" />
+</head>
+
+<body>
+
+<div id="greenline">
+  <h1><font color=white>&nbsp;Spielplan hochladen/ File auswählen</font></h1> 
+</div>
+
+<div id="greenline1">
+  &nbsp;<a href="/turnier/" class="css_button_gr">Home</a>&nbsp;&nbsp;
+</div>
+
+<br><br><br><br><br>
+
+Spielplan für folgendes Turnier hochladen:
+<h2><font color=red>{{name_turnier}}</font></h2><br>
+
+<form action="{% url 'turnier1:turnier_load_file' turnier_id %}" enctype="multipart/form-data" method="post"> {% csrf_token %}
+
+  {{ form.file}}
+  <br><br>
+  <br><a href="{% url 'turnier1:turnier_load'%}" class="css_button_gr" >Abbruch</a>
+  &nbsp;&nbsp;<input type="submit" value="Hochladen und Spiele im Turnier eintragen" class="css_button_ro"/>
+  
+</form>
+
+<div class='css_help'>
+  <strong>Hilfe:</strong><br>
+  Es kann nur eine CSV Datei mit dem ';' Zeichen als Trennzeichen hochgeladen werden.
+  <br>
+  <br> Die CSV Datei muss wie folgt aufgebaut sein und UTF-8 codiert sein:
+  <br> 9:00;LWS West;wA1;TSV Frosch;TSV Nobody;Herr Noname
+  <br>
+  <br> Die Einträge haben folgende Bedeutung:
+  <br> Spielzeit 1; Halle 1; Spieltyp 1 (hier wA Gruppe 1);Heim 1;Gast 1;Schiedsrichter 1
+  <br>
+  <br> Das Ganze kann sich in einer Zeile bis zu dreimal für drei Hallen wiederholen.
+  <br> Einträge für nur eine oder zwei Hallen sind auch möglich.
+</div>
+
+
+</body>

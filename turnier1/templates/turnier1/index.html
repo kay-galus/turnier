@@ -1,0 +1,86 @@
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+  <title>Turnier</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'turnier1/styles_lead.css' %}" />
+</head>
+
+<body>
+
+<div id="greenline">
+  <h1><font color=white>&nbsp;Turnier die Turnierverwaltung</font></h1>
+</div>
+
+<div id="rightcorner">
+    Angemeldeter User: <strong>{{ user }}</strong>
+</div>
+
+<br><br><br><br>
+{% if not erststart %}
+
+    <font color=black><strong>Status:</strong></font>
+    <table border='0' bgcolor=lightgray>
+      <tr>
+        <td>Aktives Turnier:</td>
+        <td style='color:red;'>{{akt_turnier}}</td>
+      </tr>
+      <tr>
+        <td>Turnierüberschrift:&nbsp;</td>
+        <td style='color:red;'>{{akt_ueberschrift}}</td>
+      </tr>
+      <tr>
+        <td>Spielplan ist:</td>
+        <td style='color:red;'>{% if online_turnier_id != '0' %} online {% else %} nicht online {% endif %}</td>
+      </tr>
+    </table>
+{% endif %}
+
+  {% if erststart %}
+    <br>
+    <h2>Bisher wurde noch kein Turnier angelegt</h2>
+    <h3>Bitte legen Sie ein Turnier an:</h3>
+    <ul>
+      <li> <a href="/turnier/edit/create">Turniere anlegen</a><br>
+    </ul><br>
+    Wenn noch kein Turnier angelegt wurde, sind keine weiteren Optionen möglich.<br>
+    Erst nach der Turnieranlage können Turnierpläne eingerichtet werden.<br>
+    Gehen Sie bitte wie folgt vor:
+    <ul>
+      <li>Ein Turnier anlegen (Link siehe oben)
+      <li>Wenn vorhanden, einen Turnierplan einlesen
+      <li>Überprüfen, ob alle Hallen angelegt sind
+      <li>Turnierplan pflegen
+      <li>Wenn notwendig, Einstellungen vornehmen
+    </ul>
+
+  {% else %}
+    <br>
+
+    <h3>Spielpläne:</h3>
+    <ul>
+      <li> <a href="/">Online-Ansicht Gesamtspielplan</a><br>
+    </ul> 
+    <h3>Ergebniseingabe:</h3>
+    <ul>  
+        <li> <a href="/turnier/eingabe">Ergebniseingabe/ Halleneingabe</a><br>
+    </ul> 
+     <h3>Spielleitung:</h3>
+    <ul>  
+      <li> <a href="/turnier/spielplan">Spielplan pflegen</a><br>
+      <li> <a href="/turnier/edit">Turniere pflegen</a><br>
+      <li> <a href="/turnier/aktivate">Turnier aktiviere on online stellen</a><br> 
+      <li> <a href="/turnier/edit/load">Spielplan für ein Turnier hochladen</a><br>
+      {#<li> <a href="/turnier/anzeige">Pflege Ergebnisanzeige</a><br>#}
+      {#<li> <a href="/turnier/set">Einstellungen</a><br>#}              
+    </ul> 
+
+     <h3>Anwender-Verwaltung:</h3>
+    <ul>
+      <li> <a href=" /accounts/login">User wechseln</a><br>   
+      <li> <a href=" /admin">Adminportal</a><br>   
+    </ul>
+
+  {% endif %}
+  <br><br><font color=gray>© Copyright 2014, Kay Galinsky</font>
+</body>

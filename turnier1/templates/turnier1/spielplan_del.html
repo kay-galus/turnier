@@ -1,0 +1,47 @@
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+  <title>Turniere</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'turnier1/styles_lead.css' %}" />
+</head>
+
+<body>
+
+<div id="greenline">
+  <h1><font color=white>&nbsp;Spielplanpflege/ Spiel löschen&nbsp; * &nbsp;{{ turnier }}</font></h1>
+</div>
+<br><br><br><br>
+
+<h1><stron><font color=red> Soll folgendes Spiel wirklich gelöscht werden?</font></strong><h1>
+
+    <div class="tabel_gr" >
+    <table cellspacing="0">
+        <tr>
+            <td>Zeit</td>
+            <td>Halle</td>
+            <td>Jugend</td>
+            <td>Heimverein</td>
+            <td>Tore Heim</td>
+            <td>Tore Gast</td>
+            <td>Gastverein</td>
+        </tr>
+        <tr>
+            <td>{{spiel_data.zeit|date:"H:i"}}</td>
+            <td>{{spiel_data.halle}}</td>
+            <td style='text-align:center;'>{{spiel_data.jugend}}</td>
+            <td> {% if spiel_data.heim %} {{spiel_data.heim}} {% else %}&nbsp;{% endif %}  </td>
+            <td style='text-align:center;'>{{spiel_data.toreH}}</td>
+            <td style='text-align:center;'>{{spiel_data.toreG}}</td>
+            <td> {% if spiel_data.gast %} {{spiel_data.gast}} {% else %}&nbsp;{% endif %}</td>
+    </table>
+    </div>    
+    <br>     
+    <form action="{% url 'turnier1:spielplan_del_spiel' spiel_id %}" method="post">{% csrf_token %}
+        
+        <input type="hidden" name="delete" value='delete' />
+        <input type="submit" value="Löschen" class="css_button_ro"/>&nbsp;&nbsp;
+        <a href="/turnier/spielplan" class="css_button_gr" ><font color=white>Abbruch</font></a>
+    </form>
+
+
+</body>

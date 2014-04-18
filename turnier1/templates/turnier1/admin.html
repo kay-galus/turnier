@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% autoescape on %}
+<html>
+    <head> 
+    {% block head %} 
+        <title>{% block title %}{% endblock %} admin14</title>
+            {% load staticfiles %}
+            <link rel="stylesheet" type="text/css" href="{% static 'turnier1/styles1.css' %}" />
+
+        <h2> Turnier1 - Admin-Seite: Turnierverwaltung </h2>
+      
+        <ul>
+            <a href="/">Home</a> &nbsp;&nbsp;&nbsp;
+            <a href="/admin">Liste der Turniere</a> &nbsp;&nbsp;&nbsp;
+            <a href="/admin/new">Neues Turnier erstellen</a>
+        </ul>   
+
+    {% endblock %}    
+    </head>
+    
+    <body>
+        <div id="content">
+            {% block content %}
+
+                <br><br><br>
+                Liste der angelegten Turniere:<br>
+                {% if turnier_liste %}
+                   {% for turnier in turnier_liste %} 
+                        <br>&nbsp;&nbsp;<a href="/plan">&nbsp;{{turnier.turnier_jugend}}</a> 
+
+                   {% endfor %}     
+                {% else %}
+                    Noch kein Turnier angelegt!      
+                {% endif %}
+                <br><br>
+                Um den Turniernamen zu ändern, das Turnier zu löschen oder<br>ein Turnier zu aktivieren, um mit dem entsprechenden Turnierplan zu arbeiten<br>bitte auf den Turnier-Link clicken.                         
+            {% endblock %}
+        </div>
+        <div id="footer">
+            {% block footer %}
+            <br><br>&copy; Copyright 2014 by Kay</a>.
+            {% endblock %}
+        </div>
+    </body>
+</html>
+{% endautoescape off %}

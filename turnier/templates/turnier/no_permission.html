@@ -1,0 +1,24 @@
+{% extends "registration/base.html" %}
+
+{% block title %}Turnier Login{% endblock %}
+
+{% block content %}
+
+<div id="greenline">
+  <h1><font color=white>&nbsp;Keine Berechtigung</font></h1> 
+</div>
+<br><br><br><br>
+
+<font size='3' color=red>
+        &nbsp;&nbsp;Du bist als Anwender <strong>{{ user }}</strong> angemeldet
+    <br>&nbsp;&nbsp;und hast keine Berechtigung für diese Funktion!
+    <br>
+</font>
+
+</form>
+<br><br>
+&nbsp;&nbsp;<a href= {{ next|default:"/turnier" }} class="css_button_gr" align="right">Home</a>&nbsp;
+
+
+{% endblock %}
+

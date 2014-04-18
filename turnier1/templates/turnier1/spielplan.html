@@ -1,0 +1,82 @@
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+  <title>Turnier</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'turnier1/styles_lead.css' %}" />
+</head>
+
+<body>
+
+<div id="greenline">
+  <h1><font color=white>&nbsp;Spielplanpflege{% if turnier_aktiv %} * {{ turnier }}{% endif %}</font></h1>
+</div>
+
+<div id="greenline1">
+  &nbsp;&nbsp;<a href="/turnier" class="css_button_gr" >Home</a>&nbsp;
+  &nbsp;&nbsp;<a href="/turnier/spielplan" class="css_button_gr" align="right">Aktualisieren</a>&nbsp;
+
+
+{% if turnier_aktiv %}
+      <font color=white>
+         
+         &nbsp;&nbsp;<a href="/turnier/spielplan/add" class="css_button_gr"><font color=white>Neue Spiele eintragen</font></a>&nbsp;
+      </font>
+</div>
+    {% if spielplan %}
+        
+        <br><br><br><br><br>
+
+            <div class="tabel_gr_klein" >
+              <table cellspacing="0">
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>Zeit</td>
+                  <td>Bezeichn.</td>
+                  <td>Halle</td>
+                  <td>Jugend</td>
+                  <td>Spiel</td>
+                  <td>Heim</td>
+                  <td>Tore H</td>
+                  <td>Tore G</td>
+                  <td>Gast</td>
+                  <td>Schiedsrichter</td>
+                  <td>Kampfgericht</td>
+                </tr>
+
+                {% for spiel in spielplan %}
+                    <tr>
+                      <td style='text-align:center;width:3%;'>
+                          <a href="{% url 'turnier1:spielplan_del_spiel' spiel.id %}" class="css_del_button">löschen</a></td> 
+                      <td style='text-align:center;width:3%;'>
+                          <a href="{% url 'turnier1:spielplan_edit_spiel' spiel.id %}" class="css_edit_button">edit</a></td>
+                      <td style='width:4%;font-weight:bold;'>
+                          {#  if damit Tablle richtig ausgegeben wird #}
+                          {% if spiel.zeit %} {{ spiel.zeit|date:"H:i" }}{% else %}&nbsp;{% endif %}</td>
+                      <td style='width:3%;'>
+                           {% if spiel.spiel_name %} {{ spiel.spiel_name }}{% else %}&nbsp;{% endif %}</td>
+                      <td style='width:7%;'>
+                          {% if spiel.halle %} {{ spiel.halle }}{% else %}&nbsp;{% endif %}</td>
+                      <td style='text-align:center;width:3%; '>
+                          {% if spiel.jugend %} {{ spiel.jugend }}{% else %}&nbsp;{% endif %}</td>
+                      <td style='width:6%;'>
+                          {% if spiel.spiel_type %} {{ spiel.spiel_type }}{% else %}&nbsp;{% endif %}</td>
+                      <td style='text-align:right'>{% if spiel.heim %} {{ spiel.heim }}{% else %}&nbsp;{% endif %}</td>
+                      <td style='text-align:center;font-weight:bold;'>{{ spiel.toreH }}</td>
+                      <td style='text-align:center;font-weight:bold;'>{{ spiel.toreG }}</td>
+                      <td>{% if spiel.gast %} {{ spiel.gast }}{% else %}&nbsp;{% endif %}</td>
+                      <td>{% if spiel.schiri %} {{ spiel.schiri }}{% else %}&nbsp;{% endif %}</td>
+                      <td>{% if spiel.kampfgericht %} {{ spiel.kampfgericht }}{% else %}&nbsp;{% endif %}</td>     
+                    </tr>
+                {% endfor %}
+            </table>
+          </div>
+    {% else %}
+      <br><br><br><br><h1><font size="3" color=red>&nbsp;Keine Spiele für das Turnier eingetragen!</font></h1>
+    {% endif %}
+
+{% else %}
+    <br><br><br><br><h1><font size="3" color=red>&nbsp;Im Moment ist kein Turnier aktiv!</font></h1>
+{% endif %}
+</body>

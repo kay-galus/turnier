@@ -1,0 +1,47 @@
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+  <title>Turniere</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'turnier1/styles_lead.css' %} " />
+</head>
+
+<body>
+
+<div id="greenline">
+  <h1><font color=white>&nbsp;Turnier aktivieren und online stellen</font></h1>
+</div>
+<br><br><br><br><br>
+
+<h2>Sollen folgende Einstellungen geänert werden:</h2>
+
+<div class="tabel_gr" >
+    <table cellspacing="0">
+        <tr>
+          <td></td>
+          <td>Aktives Turnier</td>
+          <td>Spielplan Online</td>
+        </tr>
+        <tr>
+          <td>Aktuelle Einstellung:</td>
+          <td>{{ akt_turnier }}</td>
+          <td style='text-align:center;'>{% if set_online_old != '0' %} ja {% else %} nein {% endif %} </td>
+        </tr>
+        <tr>
+          <td style='font-weight:bold; color:red;'>Neue Einstellung:</td>
+          <td style='font-weight:bold; color:red;'>{{ turnier_name }}</td>
+          <td style='text-align:center;font-weight:bold; color:red;'>{% if new_online_turnier_id != '0' %} ja {% else %} nein {% endif %}</td>
+        </tr>
+    </table>
+</div>        
+
+<br><br>  
+<form action="{% url 'turnier1:aktiviate_turnier_confirm' turnier_id %}?id={{ new_online_turnier_id }}" method="post">{% csrf_token %}
+    
+    <input type="hidden" name="activate" value='activate' />  {# activate wird an post zurückübergeben #}
+    <a href="/turnier/aktivate" class="css_button_gr" ><font color=white>Abbruch</font></a>
+    &nbsp;&nbsp;<input type="submit" value="Ausführen" class="css_button_ro"/>
+    
+</form>
+
+
+</body>

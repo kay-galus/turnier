@@ -1,0 +1,128 @@
+{% extends "turnier/base.html" %}
+
+{% block content %}
+
+<div id='fix_turnier_name'>
+   {{turnier_name}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{turnier_ueberschrift}} 
+</div>
+
+
+<br><br><br>
+
+<div id="contentwrapper">
+<div id="contentcolumn">
+
+    <div class="Table_blue" >
+      <table style="width: 100%">
+          <tr>
+            <td><b>Zeit</b></td>
+            <td>Halle</td>
+            <td>Jugend</td>
+            <td>Bezeichn.</td>
+            <td>Heim</td>
+            <td>Tore H</td>
+            <td>Tore G</td>
+            <td>Gast</td>
+          </tr>
+
+          {% for eintrag in spiel_und_farbe %}
+     
+            {% if eintrag.0.toreH != ' ' or eintrag.0.toreG != ' ' %}
+                  <tr>
+                    <td style='background-color:{{eintrag.1}};font-weight:bold;width:7%;color:gray;'>{{eintrag.0.zeit|date:"H:i"}}</td>
+                    <td style='background-color:{{eintrag.1}};color:gray;width:10%;'>{{eintrag.0.halle}}</td>
+                    <td style='background-color:{{eintrag.1}};text-align:center;width:5%;color:gray;'>{{eintrag.0.jugend}}</td>
+                    <td style='background-color:{{eintrag.1}};width:5%;color:gray;'>{{eintrag.0.spiel_name}}</td>
+                    <td style='background-color:{{eintrag.1}};text-align:right;color:gray;'>{{eintrag.0.heim}}</td>
+                    <td style='background-color:{{eintrag.1}};text-align:center;width:8%;color:gray;'>{{eintrag.0.toreH}}</td>
+                    <td style='background-color:{{eintrag.1}};text-align:center;width:8%;color:gray;'>{{eintrag.0.toreG}}</td>
+                    <td style='background-color:{{eintrag.1}};color:gray;'>{{eintrag.0.gast}}</td>
+                  </tr>
+            {% else %}
+                  <tr>
+                    <td style='background-color:{{eintrag.1}};font-weight:bold;width:4%;'>{{eintrag.0.zeit|date:"H:i"}}</td>
+                    <td style='background-color:{{eintrag.1}};width:10%;'>{{eintrag.0.halle}}</td>
+                    <td style='background-color:{{eintrag.1}};text-align:center;width:5%;'>{{eintrag.0.jugend}}</td>
+                    <td style='background-color:{{eintrag.1}};width:5%;'>{{eintrag.0.spiel_name}}</td>
+                    <td style='background-color:{{eintrag.1}};text-align:right;'>{{eintrag.0.heim}}</td>
+                    <td style='background-color:{{eintrag.1}};text-align:center;width:8%;'>{{eintrag.0.toreH}}</td>
+                    <td style='background-color:{{eintrag.1}};text-align:center;width:8%;'>{{eintrag.0.toreG}}</td>
+                    <td style='background-color:{{eintrag.1}};'>{{eintrag.0.gast}}</td>
+                  </tr>
+            {% endif %}
+          {% endfor %}
+      </table>
+    </div>
+</div>
+</div>
+
+<div id="leftcolumn">
+<div class="innertube">
+
+  {% for spielplan in array_spielplaene_m %}
+
+    <font color=black size='2'><strong>Männliche Jugend Gruppe {{forloop.counter}} </strong></font>
+      <div class="Table_klein_blue" >
+        <table style="width: 100%">
+            <tr>
+              <td><b>Zeit</b></td>
+              <td>Halle</td>
+              <td>Heim</td>
+              <td>Tore H</td>
+              <td>Tore G</td>
+              <td>Gast</td>
+            </tr>
+                {% for spiel in spielplan %}
+                  <tr>
+                    <td style='width:8%;font-weight:bold;'>{{spiel.zeit|date:"H:i"}}</td>
+                    <td >{{spiel.halle}}</td>
+                    <td style='text-align:right;'>{{spiel.heim}}</td>
+                    <td style='text-align:center;width:10%;'>{{spiel.toreH}}</td>
+                    <td style='text-align:center;width:10%;'>{{spiel.toreG}}</td>
+                    <td> {{spiel.gast}}</td>
+                  </tr>
+                {% endfor %}
+        </table>
+      </div>
+      <br>
+  {% endfor %}
+
+</div>
+</div>
+
+<div id="rightcolumn">
+<div class="innertube">
+
+  {% for spielplan in array_spielplaene_w %}
+
+    <font color=black size='2'><strong>Weibliche Jugend Gruppe {{forloop.counter}} </strong></font>
+      <div class="Table_klein_blue" >
+        <table style="width: 100%">
+            <tr>
+              <td><b>Zeit</b></td>
+              <td>Halle</td>
+              <td>Heim</td>
+              <td>Tore H</td>
+              <td>Tore G</td>
+              <td>Gast</td>
+            </tr>
+                {% for spiel in spielplan %}
+                  <tr>
+                    <td style='width:8%;font-weight:bold;'>{{spiel.zeit|date:"H:i"}}</td>
+                    <td >{{spiel.halle}}</td>
+                    <td style='text-align:right;'>{{spiel.heim}}</td>
+                    <td style='text-align:center;width:10%;'>{{spiel.toreH}}</td>
+                    <td style='text-align:center;width:10%;'>{{spiel.toreG}}</td>
+                    <td> {{spiel.gast}}</td>
+                  </tr>
+                {% endfor %}
+        </table>
+      </div>
+      <br>
+  {% endfor %}
+
+</div>
+</div>
+
+{% endblock %}
+

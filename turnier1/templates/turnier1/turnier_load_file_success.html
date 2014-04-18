@@ -1,0 +1,21 @@
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+  <title>Turnier</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'turnier1/styles_lead.css' %}" />   
+</head>
+<body>
+
+<div id="greenline">
+  <h1><font color=white>&nbsp;Turnierverwaltung</font></h1>
+</div>
+
+    <br><br><br><br>
+    <h2> Der CSV File wurde erfolgreich hochgeladen!</h2>
+    <br> Die Spiele wurden zu folgendem Turnier hinzugefügt:
+    <h2><font color=red>{{name_turnier}}</font></h2>
+     <br>
+     <a href="{% url 'turnier1:index'%}" class="css_button_gr">OK</a> 
+
+</body>
