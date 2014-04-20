@@ -14,11 +14,10 @@ a.right{
 #rightcorner{
   color: white;
   font-size: small;
-  text-decoration: none;
-  float: right;
-  margin-right:10px;
+  right:20px;
+  top:2px;
   z-index:1;
-  position: relative;
+  position: fixed;
 }
 
 a.right:hover {
