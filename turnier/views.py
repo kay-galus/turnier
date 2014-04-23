@@ -8,7 +8,7 @@ from turnier1.models import Spiel, Turnier, Spielort, Settings
 
 
 # Da nicht alle Spiele auf die Bildschirmseite passen werde nur du die lezten Ergenisse angezeigt
-ANZAHL_ERGEBNISSE_ANZEIGEN = 10 
+ANZAHL_ERGEBNISSE_ANZEIGEN = 6 
 
 #+++++++++++++++++++++++++++++++++++++++++++++
 # Loesche alle Nones aus toreH und ToreG und ersetyte mit ' '

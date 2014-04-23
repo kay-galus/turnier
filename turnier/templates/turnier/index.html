@@ -17,12 +17,13 @@
           <tr>
             <td><b>Zeit</b></td>
             <td>Halle</td>
-            <td>Jugend</td>
+            <td>Jug.</td>
             <td>Bezeichn.</td>
             <td>Heim</td>
             <td>Tore H</td>
             <td>Tore G</td>
             <td>Gast</td>
+            <td>Schiedsrichter</td>
           </tr>
 
           {% for eintrag in spiel_und_farbe %}
@@ -37,6 +38,7 @@
                     <td style='background-color:{{eintrag.1}};text-align:center;width:8%;color:gray;'>{{eintrag.0.toreH}}</td>
                     <td style='background-color:{{eintrag.1}};text-align:center;width:8%;color:gray;'>{{eintrag.0.toreG}}</td>
                     <td style='background-color:{{eintrag.1}};color:gray;'>{{eintrag.0.gast}}</td>
+                    <td style='background-color:{{eintrag.1}};color:gray;'>{{eintrag.0.schiri}}</td>
                   </tr>
             {% else %}
                   <tr>
@@ -48,6 +50,7 @@
                     <td style='background-color:{{eintrag.1}};text-align:center;width:8%;'>{{eintrag.0.toreH}}</td>
                     <td style='background-color:{{eintrag.1}};text-align:center;width:8%;'>{{eintrag.0.toreG}}</td>
                     <td style='background-color:{{eintrag.1}};'>{{eintrag.0.gast}}</td>
+                    <td style='background-color:{{eintrag.1}};'>{{eintrag.0.schiri}}</td>
                   </tr>
             {% endif %}
           {% endfor %}

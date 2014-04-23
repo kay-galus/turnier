@@ -15,6 +15,9 @@ from turnier1.forms import EingabeHallenForm
 from django.contrib.auth.decorators import login_required, permission_required
 
 import pusher
+
+ANZAHL_ERGEBNISSE_ANZEIGEN_EINGABE = 3
+
 #++++++++++++++++++++++++++++++++++++++++
 #  Hiermit wird der Trigger fuer den 
 #  Seitenupdate der Homeseite ausgeloest
@@ -84,7 +87,18 @@ def eingabe_halle_spielliste(request, hallen_id):
 
     if akt_id != '0':
         turnier_aktiv      = True
-        hallen_spielplan   = Spiel.objects.filter(turnier=akt_id, halle=q_halle.hallen_name).order_by('zeit') # alle Spiele für das Turnier
+
+        # nur die letzten 4 Ergebnisse anzeigen, dann muss nicht gescrollt werden
+        hallen_spielplan   = Spiel.objects.filter(turnier=akt_id, halle=q_halle.hallen_name).order_by('zeit')
+        i=0
+        for spiel in hallen_spielplan:
+            if spiel.toreH != None:
+                i +=1
+
+        if i > ANZAHL_ERGEBNISSE_ANZEIGEN_EINGABE: # es sind mehr Spiele mit Ergebnissen im Spielplan
+            n = i - ANZAHL_ERGEBNISSE_ANZEIGEN_EINGABE
+            hallen_spielplan = Spiel.objects.filter(turnier=akt_id, halle=q_halle.hallen_name).order_by('zeit')[n:]
+
         q_turnier          = Turnier.objects.get(pk=akt_id)
         turnier            = q_settings.aktives_turnier
         ueberschrift       = q_turnier.ueberschrift
