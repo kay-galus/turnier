@@ -56,6 +56,9 @@ def spielplan(request):
         turnier       = ''
         ueberschrift  = 'Keine Turnier aktiv!'
 
+    # Trigger fuer pusher.com ausloesen
+    trigger_site_update()    
+
     context = RequestContext(request, {
         'turnier_aktiv' : turnier_aktiv,
         'turnier'       : turnier,
@@ -90,9 +93,6 @@ def spielplan_edit_spiel(request, spiel_id):
 
             # Daten aus dem Form auslesen und auf DB Schreiben
             new_store  = form_spiel.save()
-
-            # Trigger fuer pusher.com ausloesen
-            trigger_site_update()
 
             return HttpResponseRedirect('/turnier/spielplan/') # Ruecksprung
 

@@ -2,7 +2,7 @@
 
 from django.conf.urls import patterns, url
 from turnier1 import views
-from turnier1 import views_eingabe, views_spielplan
+from turnier1 import views_eingabe, views_spielplan, views_ergebnis
 
 urlpatterns = patterns('',
 
@@ -31,6 +31,9 @@ urlpatterns = patterns('',
     # Turnier aktivieren
     url(r'^aktivate/$', views.aktiviate_turnier, name='aktiviate_turnier'),    
     url(r'^aktivate/confirm/(?P<turnier_id>\d+)$', views.aktiviate_turnier_confirm, name='aktiviate_turnier_confirm'), 
+
+    # Ergebnisanzeige
+    url(r'^results/$', views_ergebnis.ergebnis_list, name='ergebnis_list'), 
 
 )
  

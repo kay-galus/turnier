@@ -1,0 +1,58 @@
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+  <title>Turniere</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'turnier/styles.css' %}" />
+    <link rel="shortcut icon" href="{% static 'turnier/favicon.ico' %}" />
+
+</head>
+
+<div id="white_line_top"></div>
+
+<div id="fix_img">
+  <img src="{% static 'turnier/Header_Turniersoftware.jpg' %}" alt="header">
+</div>
+
+<body>
+
+<div id="white_line_buttons"></div>
+
+
+<div id='fix_turnier_name'>
+   Ergebnisse aller Turniere
+</div>
+<br><br><br><br><br><br>
+
+{% if alle_turniere %}
+
+  <h3>&nbsp;Um die Spielergebnisse anzuzeigen<br>&nbsp;bitte das Turnier auswählen:</h3>
+  
+  {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+  <form action="{% url 'turnier1:ergebnis_list' %}" method="post">{% csrf_token %}
+
+  <div class="tabel_gr" >
+    <table cellspacing="0">
+        <tr>
+          <td style='text-align:center;width: 30px;'>       
+              <input type="radio" name="choice" id="choice0" value=0 checked />
+          </td>
+          <td style='text-align:center;'>Turnier</td>
+        </tr>
+        {% for turnier in alle_turniere %}
+        <tr>
+            <td style='text-align:center;'><input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ turnier.id }}" /></td>
+            <td> {{ turnier.turnier_name }}</td> 
+        </tr>
+        {% endfor %}
+    </table>
+  </div>
+
+    <br>
+    &nbsp;<input type="submit" class="css_button_ro" value="Ergebnisliste anzeigen" />
+  </form>
+
+{% else %} 
+  Kein Turnier eingetragen!
+{% endif %}  
+</body>

@@ -1,0 +1,115 @@
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+  <title>Turniere</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'turnier/styles.css' %}" />
+    <link rel="shortcut icon" href="{% static 'turnier/favicon.ico' %}" />
+
+</head>
+<div id="white_line_top"></div>
+<div id="fix_img"> <img src="{% static 'turnier/Header_Turniersoftware.jpg' %}" alt="header"></div>
+
+<body>
+<div id ='fix_buttons'>
+    <a href="{% url 'turnier1:ergebnis_list' %}" class="button_grey">Home</a>
+</div>
+
+
+<div id="white_line_buttons"></div>
+<div id='fix_turnier_name'>Spielergebnisse - Turnier: {{turnier_name}} </div>
+<br><br><br><br><br><br>
+
+<h2>Spielergebnisse männliche Jungend:</h2>
+<div class="tabel_gr" >
+    <table cellspacing="0">
+          <tr>
+            <td><b>Zeit</b></td>
+            <td>Halle</td>
+            <td>Jugend</td>
+            {#<td>Bezeichn.</td>#}
+            <td>Spiel</td>
+            <td>Heim</td>
+            <td>Tore H</td>
+            <td>Tore G</td>
+            <td>Gast</td>
+          </tr>
+
+          {% for eintrag in spiele_maen %}
+              <tr>
+                <td style='width:4%;'>{{eintrag.zeit|date:"H:i"}}</td>
+                <td style='width:8%;'>{{eintrag.halle}}</td>
+                <td style='width:5%;'>{{eintrag.jugend}}</td>
+                {#<td style='width:5%;text-align:center;'>{{eintrag.spiel_name}}</td>#}
+                <td style='width:8%;text-align:center;'>{{eintrag.spiel_type}}</td>
+                <td style='text-align:right;'>{{eintrag.heim}}</td>
+                <td style='text-align:center;width:8%;'>{{eintrag.toreH}}</td>
+                <td style='text-align:center;width:8%;'>{{eintrag.toreG}}</td>
+                <td>{{eintrag.gast}}</td>
+              </tr>
+          {% endfor %}
+      </table>
+</div>
+<br>
+<h2>Spielergebnisse weibliche Jungend:</h2>
+<div class="tabel_gr" >
+    <table cellspacing="0">
+          <tr>
+            <td><b>Zeit</b></td>
+            <td>Halle</td>
+            <td>Jugend</td>
+            {#<td>Bezeichn.</td>#}
+            <td>Spiel</td>
+            <td>Heim</td>
+            <td>Tore H</td>
+            <td>Tore G</td>
+            <td>Gast</td>
+          </tr>
+
+          {% for eintrag in spiele_weib %}
+              <tr>
+                <td style='width:4%;'>{{eintrag.zeit|date:"H:i"}}</td>
+                <td style='width:8%;'>{{eintrag.halle}}</td>
+                <td style='width:5%;'>{{eintrag.jugend}}</td>
+                {#<td style='width:5%;text-align:center;'>{{eintrag.spiel_name}}</td>#}
+                <td style='width:8%;text-align:center;'>{{eintrag.spiel_type}}</td>
+                <td style='text-align:right;'>{{eintrag.heim}}</td>
+                <td style='text-align:center;width:5%;'>{{eintrag.toreH}}</td>
+                <td style='text-align:center;width:5%;'>{{eintrag.toreG}}</td>
+                <td>{{eintrag.gast}}</td>
+              </tr>
+          {% endfor %}
+      </table>
+</div>
+<br>
+<h2>Spielergebnisse sonstige Spiele:</h2>
+<div class="tabel_gr" >
+    <table cellspacing="0">
+          <tr>
+            <td><b>Zeit</b></td>
+            <td>Halle</td>
+            <td>Jugend</td>
+            {#<td>Bezeichn.</td>#}
+            <td>Spiel</td>
+            <td>Heim</td>
+            <td>Tore H</td>
+            <td>Tore G</td>
+            <td>Gast</td>
+          </tr>
+
+          {% for eintrag in spiele_sonst %}
+              <tr>
+                <td style='width:4%;'>{{eintrag.zeit|date:"H:i"}}</td>
+                <td style='width:8%;'>{{eintrag.halle}}</td>
+                <td style='width:5%;'>{{eintrag.jugend}}</td>
+                {#<td style='width:5%;text-align:center;'>{{eintrag.spiel_name}}</td>#}
+                <td style='width:8%;text-align:center;'>{{eintrag.spiel_type}}</td>
+                <td style='text-align:right;'>{{eintrag.heim}}</td>
+                <td style='text-align:center;width:5%;'>{{eintrag.toreH}}</td>
+                <td style='text-align:center;width:5%;'>{{eintrag.toreG}}</td>
+                <td>{{eintrag.gast}}</td>
+              </tr>
+          {% endfor %}
+      </table>
+</div>
+
+</body>
