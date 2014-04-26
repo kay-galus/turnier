@@ -111,7 +111,7 @@ def index(request):
     spielplan_w_g1 = Spiel.objects.filter(turnier=akt_id,spiel_type='Gruppe 1',jugend='w').order_by('zeit', '-halle')
     spielplan_w_g2 = Spiel.objects.filter(turnier=akt_id,spiel_type='Gruppe 2',jugend='w').order_by('zeit', '-halle')
     spielplan_w_g3 = Spiel.objects.filter(turnier=akt_id,spiel_type='Gruppe 3',jugend='w').order_by('zeit', '-halle')
-    spielplan_w_g4 = Spiel.objects.filter(turnier=akt_id,spiel_type='Gruppe 10',jugend='w').order_by('zeit', '-halle')
+    spielplan_w_g4 = Spiel.objects.filter(turnier=akt_id,spiel_type='Gruppe 4',jugend='w').order_by('zeit', '-halle')
 
     loesche_none(spielplan_m_g1)
     loesche_none(spielplan_m_g2)
