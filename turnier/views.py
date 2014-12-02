@@ -138,14 +138,14 @@ def index(request):
     turnier_name         = q_turnier.turnier_name
     turnier_ueberschrift = q_turnier.ueberschrift
 
-    context = RequestContext(request, {
+    context = {
         'spiel_und_farbe'      : spiel_und_farbe,
         'spielplan'            : spielplan,
         'turnier_name'         : turnier_name,
         'turnier_ueberschrift' : turnier_ueberschrift,
         'array_spielplaene_m'  : array_spielplaene_m,
         'array_spielplaene_w'  : array_spielplaene_w,
-    })
+    }
     return render(request,'turnier/index.html',context)
 
 #----------------------------------------------------
@@ -176,13 +176,13 @@ def spielplan(request):
     text                 = 'Gesamtspielplan'
 
 
-    context = RequestContext(request, {
+    context = {
         'text'                 : text,
         'spiel_und_farbe'      : spiel_und_farbe,
         'spielplan'            : spielplan,
         'turnier_name'         : turnier_name,
         'turnier_ueberschrift' : turnier_ueberschrift,
-    })
+    }
     return render(request,'turnier/t_spielplan.html',context) 
 
 #----------------------------------------------------
@@ -212,13 +212,13 @@ def spielpl_weibl(request):
     turnier_ueberschrift = q_turnier.ueberschrift
     text                 = 'Spielplan weibliche Jugend'
 
-    context = RequestContext(request, {
+    context = {
         'text'                 : text,
         'spiel_und_farbe'      : spiel_und_farbe,
         'spielplan'            : spielplan,
         'turnier_name'         : turnier_name,
         'turnier_ueberschrift' : turnier_ueberschrift,
-    })
+    }
     return render(request,'turnier/t_spielplan.html',context) 
 
 #----------------------------------------------------
@@ -248,13 +248,13 @@ def spielplan_maen(request):
     turnier_ueberschrift = q_turnier.ueberschrift
     text                 = 'Spielplan männliche Jugend'
 
-    context = RequestContext(request, {
+    context = {
         'text'                 : text,
         'spiel_und_farbe'      : spiel_und_farbe,
         'spielplan'            : spielplan,
         'turnier_name'         : turnier_name,
         'turnier_ueberschrift' : turnier_ueberschrift,
-    })
+    }
     return render(request,'turnier/t_spielplan.html',context) 
 
 #------------------------------------------
@@ -263,10 +263,10 @@ def spielplan_maen(request):
 def no_permission(request):
 
 
-    context = RequestContext(request, {
+    context = {
         'user'        : request.user,
 
-    })
+    }
     template = loader.get_template('turnier/no_permission.html')    
     return HttpResponse(template.render(context))
 

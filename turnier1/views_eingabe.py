@@ -64,13 +64,13 @@ def eingabe_gesamtspielplan(request):
         turnier       = ''
         ueberschrift  = 'Keine Turnier aktiv!'
 
-    context = RequestContext(request, {
+    context = {
         'turnier_aktiv' : turnier_aktiv,
         'turnier'       : turnier,
         'spielplan'     : spielplan,
         'ueberschrift'  : ueberschrift,
         'alle_hallen'   : alle_hallen,
-    })
+    }
     return render(request,'turnier1/eingabe.html',context)
 
 #----------------------------------------------------
@@ -110,14 +110,14 @@ def eingabe_halle_spielliste(request, hallen_id):
         ueberschrift       = 'Keine Turnier aktiv!'
         form_eingabe_halle = ''
 
-    context = RequestContext(request, {
+    context = {
         'turnier_aktiv'   : turnier_aktiv,
         'hallen_spielplan': hallen_spielplan,
         'turnier'         : turnier,
         'ueberschrift'    : ueberschrift,
         'hallen_name'     : q_halle.hallen_name,
         'hallen_id'       : hallen_id,
-    })
+    }
     return render(request,'turnier1/eingabe_spielliste.html',context)
 #--------------------------------------------------
 # Spielergebniss eintragen
@@ -150,7 +150,7 @@ def eingabe_edit_spiel(request, spiel_id):
 
     q_akt_spiel  = get_object_or_404(Spiel, pk=spiel_id)
 
-    context = RequestContext(request, {
+    context = {
         'spiel_zeit'   : q_akt_spiel.zeit,
         'halle'        : q_akt_spiel.halle,
         'jugend'       : q_akt_spiel.jugend,
@@ -161,7 +161,7 @@ def eingabe_edit_spiel(request, spiel_id):
         'hallen_id'    : hallen_id,
         'spiel_id'     : spiel_id,
         'form_eingabe' : form_eingabe,
-    })
+    }
     return render(request,'turnier1/eingabe_edit.html',context)
 
 

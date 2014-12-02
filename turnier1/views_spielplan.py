@@ -59,12 +59,12 @@ def spielplan(request):
     # Trigger fuer pusher.com ausloesen
     trigger_site_update()    
 
-    context = RequestContext(request, {
+    context = {
         'turnier_aktiv' : turnier_aktiv,
         'turnier'       : turnier,
         'spielplan'     : spielplan,
         'ueberschrift'  : ueberschrift,
-    })
+    }
     return render(request,'turnier1/spielplan.html',context)
 
 #----------------------------------------------------
@@ -96,12 +96,12 @@ def spielplan_edit_spiel(request, spiel_id):
 
             return HttpResponseRedirect('/turnier/spielplan/') # Ruecksprung
 
-    context = RequestContext(request, {
+    context = {
         'spiel_id'     : spiel_id,
         'form_spiel'   : form_spiel,
         'turnier'      : turnier,
         'ueberschrift' : ueberschrift,
-    })
+    }
     return render(request,'turnier1/spielplan_edit.html',context)
      
 #---------------------------------------------
@@ -136,12 +136,12 @@ def spielplan_del_spiel(request, spiel_id):
     
     q_akt_spiel  = get_object_or_404(Spiel, pk=spiel_id)
 
-    context = RequestContext(request, {
+    context = {
         'spiel_id'   : spiel_id,
         'turnier'       : turnier,
         'spiel_data'    : q_akt_spiel,
         'ueberschrift'  : ueberschrift,
-    })
+    }
     return render(request,'turnier1/spielplan_del.html',context)
 #---------------------------------------------
 # Neue Spiele eintragen
@@ -177,12 +177,12 @@ def spielplan_add_spiel(request):
 
                 return HttpResponseRedirect('/turnier/spielplan/') # Ruecksprung
 
-    context = RequestContext(request, {
+    context = {
         'form_spiel'   : form_spiel,
         'form_turnier' : form_turnier,
         'turnier'       : q_turnier.turnier_name,
         'ueberschrift'  : q_turnier.ueberschrift,
-    })
+    }
     return render(request,'turnier1/spielplan_add.html',context)
 
 

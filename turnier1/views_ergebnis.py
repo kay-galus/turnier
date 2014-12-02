@@ -36,18 +36,18 @@ def ergebnis_list(request):
                 q_spiele_weib = Spiel.objects.filter(turnier=t_id,jugend='w').order_by('zeit', '-halle')
                 q_spiele_sonst=Spiel.objects.filter(turnier=t_id).exclude(jugend='w').exclude(jugend='m').order_by('jugend','zeit', '-halle')
 
-                context = RequestContext(request, {
+                context = {
                     'turnier_name'    : q_turnier.turnier_name,
                     'spiele_maen'     : q_spiele_maen,
                     'spiele_weib'     : q_spiele_weib,
                     'spiele_sonst'    : q_spiele_sonst,
-                })
+                }
                 return render(request,'turnier1/ergebnis_list.html',context)
 
  
-    context = RequestContext(request, {
+    context = {
         'alle_turniere'     : q_alle_turniere,
-    })
+    }
     return render(request,'turnier1/ergebnis.html',context)
 
 

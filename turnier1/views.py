@@ -132,7 +132,7 @@ def index(request):
             
             group.permissions.add(per_sp2)
 
-    context = RequestContext(request, {
+    context = RequestContext(request,{
         'user'             : request.user,
         'erststart'        : erststart,
         'alle_hallen'      : alle_hallen,
@@ -222,7 +222,9 @@ def turniere(request):
 
             i=n*max(m)    
             for orte in q_aa:
-                turr[i][1]= str(orte.hallen_name)
+                print orte.hallen_name
+                #turr[i][1]= str(orte.hallen_name)
+                turr[i][1]= orte.hallen_name
                 i +=1
             n +=1
         
@@ -230,14 +232,14 @@ def turniere(request):
         for i in range(0,max(m)):
             max_spielorte = max_spielorte +'x' # Erzeugt xxx für drei Spielorte
 
-    context = RequestContext(request, {
+    context ={
         'alle_turniere': alle_turniere,
         'aktiv_tunier' : aktiv_tunier,
         'aktiv_tunier_id' : int(aktiv_tunier_id),
         'q_spielorte'     : q_spielorte,
         'max_spielorte' : max_spielorte,
         'turr' : turr,
-    })
+    }
     return render(request,'turnier1/turnier.html',context)
 #----------------------------------------------------
 # edit the selected tournament
@@ -289,12 +291,12 @@ def turnier_edit(request,turnier_id):
 
                 return HttpResponseRedirect('/turnier/edit/') # Ruecksprung
 
-    context = RequestContext(request, {
+    context ={
         'akt_turnier': akt_turnier,
         'turnier_id'   : turnier_id,
         'form_halle'  : form_halle,
         'form_turnier' : form_turnier,
-    })
+    }
     return render(request,'turnier1/turnier_edit.html',context)
 
 #----------------------------------------------------
@@ -351,11 +353,11 @@ def turnier_create(request):
 
                 return HttpResponseRedirect('/turnier/edit/') # Ruecksprung
    
-    context = RequestContext(request, {
+    context = {
         'erstes_turnier': erstes_turnier,
         'form_halle'    : form_halle,
         'form_turnier'  : form_turnier,
-    })
+    }
     return render(request,'turnier1/turnier_create.html',context)
 
 #----------------------------------------------------
@@ -394,14 +396,14 @@ def aktiviate_turnier(request):
                 else:
                     new_online_turnier_id = '0'
 
-            context = RequestContext(request, {
+            context = {
                 'akt_turnier'          : akt_turnier.aktives_turnier,
                 'ueberschrift'         : ueberschrift,
                 'turnier_name'         : turnier_name,
                 'turnier_id'           : t_id,
                 'set_online_old'       : akt_turnier.online_turnier_id,
                 'new_online_turnier_id': new_online_turnier_id,
-            })
+            }
             return render(request,'turnier1/turnier_aktivate_confirm.html',context)
 
     # Lister der angelegten Turnier ausgeben
@@ -413,13 +415,13 @@ def aktiviate_turnier(request):
     else:
         akt_ueberschrift = ''
 
-    context = RequestContext(request, {
+    context ={
         'alle_turniere'     : alle_turniere,
         'akt_turnier'       : akt_turnier.aktives_turnier,
         'akt_ueberschrift'  : akt_ueberschrift,
         'akt_turnier_id'    : int(akt_turnier.aktives_turnier_id),
         'online_turnier_id' : akt_turnier.online_turnier_id,
-    })
+    }
     return render(request,'turnier1/turnier_aktivate.html',context)
 #------------------------------------------------------
 #   Confirm activate tournament
@@ -476,11 +478,11 @@ def turnier_load(request):
     q_settings    = Settings.objects.get(pk=1)
 
     # Lister der angelegten Turnier ausgeben
-    context = RequestContext(request, {
+    context = {
         'alle_turniere' : alle_turniere,
         'akt_turnier'   : q_settings.aktives_turnier,
         'akt_turnier_id': int(q_settings.aktives_turnier_id),
-    })
+    }
     return render(request,'turnier1/turnier_load.html',context)
 
 #--------------------
@@ -505,9 +507,9 @@ def turnier_load_file(request, turnier_id):
                 #kein CSV-File
                 file_name = request.FILES['file']
 
-                context = RequestContext(request, {
+                context = {
                     'file_name' : file_name,
-                })
+                }
                 return render(request,'turnier1/turnier_load_file_fail.html',context)
 
             else:
@@ -562,9 +564,9 @@ def turnier_load_file(request, turnier_id):
                 q_turnier    = get_object_or_404(Turnier, pk=turnier_id)
                 name_turnier = q_turnier.turnier_name
 
-                context = RequestContext(request, {
+                context = {
                     'name_turnier' : name_turnier,
-                })
+                }
                 return render(request,'turnier1/turnier_load_file_success.html',context)
 
         else:
@@ -573,11 +575,11 @@ def turnier_load_file(request, turnier_id):
             name_turnier = q_turnier.turnier_name
 
             # Lister der angelegten Turnier ausgeben
-            context = RequestContext(request, {
+            context = {
                 'name_turnier' : name_turnier,
                 'turnier_id'   : turnier_id,
                 'form'         : form,
-            })
+            }
             return render(request,'turnier1/turnier_load_file.html',context)
 
         return HttpResponseRedirect('/turnier/edit/load')
@@ -587,11 +589,11 @@ def turnier_load_file(request, turnier_id):
     name_turnier = q_turnier.turnier_name
 
     # Lister der angelegten Turnier ausgeben
-    context = RequestContext(request, {
+    context = {
         'name_turnier' : name_turnier,
         'turnier_id'   : turnier_id,
         'form'         : form,
-    })
+    }
     return render(request,'turnier1/turnier_load_file.html',context)
 
 
